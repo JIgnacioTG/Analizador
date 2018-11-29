@@ -27,12 +27,11 @@ public class errores extends javax.swing.JDialog {
         dtmErrores = new DefaultTableModel();
         
         // Se dibuja la tabla agregando las columnas al modelo base.
-        dtmErrores.addColumn("Posición");
         dtmErrores.addColumn("Descripción");
         
         // Se llena la tabla de errores.
         for (int i = 0; i < analizador.obtenerNumErrores(); i++) {
-            dtmErrores.addRow(new Object[]{"Línea " +analizador.obtenerPosError()[i], analizador.obtenerTxtError()[i]});
+            dtmErrores.addRow(new Object[]{analizador.obtenerTxtError()[i]});
         }
         
         tblErrores.setModel(dtmErrores);
@@ -68,7 +67,7 @@ public class errores extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Posición", "Descripción"
+                "Descripción"
             }
         ));
         scrErrores.setViewportView(tblErrores);

@@ -17,8 +17,6 @@ import java.util.regex.Pattern;
  */
 public class analizador {
     
-    private static ArrayList<Integer> posError;
-    private static ArrayList<String> IDEUtil;
     private static ArrayList<String> txtError;
     private static ArrayList<String> variable;
     private static ArrayList<String> tipoVar;
@@ -38,9 +36,6 @@ public class analizador {
         // Objeto para la construcción de strings.
         StringBuilder stb = new StringBuilder();
         
-        // Se inicializan las listas.
-        posError = new ArrayList<>();
-        IDEUtil = new ArrayList<>();
         txtError = new ArrayList<>();
         variable = new ArrayList<>();
         tipoVar = new ArrayList<>();
@@ -365,8 +360,7 @@ public class analizador {
                     
                     // Se verifica que si existe incompatibilidad de tipos.
                     if (tipo.equalsIgnoreCase("int")) {
-                        posError.add(linea);
-                        txtError.add("Incompatibilidad de tipos: " +var+ " es un int y " +palabra[j]+ " es un float.");
+                        txtError.add("Línea " +linea+ ": Incompatibilidad de tipos: " +var+ " es un int y " +palabra[j]+ " es un float.");
                         
                         error = true;
                         errores = true;
@@ -610,8 +604,7 @@ public class analizador {
                             
                             // Se analiza si la variable ha sido declarada previamente.
                             if (!tipo.equalsIgnoreCase("null") && !asignacion) {
-                                posError.add(linea);
-                                txtError.add("La variable " + palabra[j] + " ha sido declarada previamente.");
+                                txtError.add("Línea " +linea+ ": La variable " + palabra[j] + " ha sido declarada previamente.");
 
                                 error = true;
                                 errores = true;
@@ -636,8 +629,7 @@ public class analizador {
                     
                     // Se analiza si la variable no ha sido declarada.
                     if (tipoPalabra.equalsIgnoreCase("null")) {
-                        posError.add(linea);
-                        txtError.add("Variable " + palabra[j] + " no declarada.");
+                        txtError.add("Línea " +linea+ ": Variable " + palabra[j] + " no declarada.");
                         
                         error = true;
                         errores = true;
@@ -648,8 +640,7 @@ public class analizador {
                         
                         // Se analiza si el tipo base no es compatible con el tipo que se analiza.
                         if (tipo.equalsIgnoreCase("int") && (tipoPalabra.equalsIgnoreCase("double") || tipoPalabra.equalsIgnoreCase("float"))) {
-                            posError.add(linea);
-                            txtError.add("Incompatibilidad de tipos: " +var+ " es un int y " +palabra[j]+ " es " +tipoPalabra+ ".");
+                            txtError.add("Línea " +linea+ ": Incompatibilidad de tipos: " +var+ " es un int y " +palabra[j]+ " es " +tipoPalabra+ ".");
 
                             error = true;
                             errores = true;
@@ -657,8 +648,7 @@ public class analizador {
                         
                         // Se analiza si la variable no se encuentra inicializada.
                         if (valorPalabra.equalsIgnoreCase("null")) {
-                            posError.add(linea);
-                            txtError.add("Variable " + palabra[j] + " no inicializada.");
+                            txtError.add("Línea " +linea+ ": Variable " + palabra[j] + " no inicializada.");
 
                             error = true;
                             errores = true;
@@ -685,11 +675,6 @@ public class analizador {
                                 tokens.add(tokens.get(t));
                                 valorTokens.add(valorTokens.get(t));
                                 nuevo = false;
-                                
-                                // Se debe registrar la posición de esta variable que esta siendo utilizada en una asignación.
-                                if (asignacion) {
-                                    IDEUtil.add(tokens.get(t));
-                                }
                             
                                 break;
                             }
@@ -748,9 +733,6 @@ public class analizador {
                 }
             }
         }
-        
-        // Se agrega como utilizado el ultimo IDE.
-        IDEUtil.add(ultimoIDE);
         
         // Ahora el código se optimiza
         optimizarCodigo();
@@ -825,24 +807,6 @@ public class analizador {
         
         // Se regresan todas las variables.
         return valores;
-    }
-    
-    // Método para la posición del error.
-    public static int[] obtenerPosError() {
-        
-        // Número de variables registradas.
-        int tamanio = posError.size();
-        
-        // Arreglo que almacena todas las variables.
-        int[] posiciones = new int[tamanio];
-        
-        // Se recorre el ArrayList de variables.
-        for (int i = 0; i < tamanio; i++) {
-            posiciones[i] = posError.get(i);
-        }
-        
-        // Se regresan todas las variables.
-        return posiciones;
     }
     
     // Método para obtener el texto de los errores.
@@ -923,12 +887,14 @@ public class analizador {
             String actualToken = tokens.get(i);
             String actualValor = valorTokens.get(i);
             String preToken = "";
+            String preValor = "";
             String posToken = "";
             Boolean ultimo = true;
             
             // Se guarda el token anterior necesario para algunas comprobaciones.
             if (i > 0) {
                 preToken = tokens.get(i-1);
+                preValor = valorTokens.get(i-1);
             }
             
             // Se guarda el token posterior necesario para algunas comprobaciones.
@@ -969,40 +935,7 @@ public class analizador {
             // Si hay una palabra reservada
             else if (actualToken.contains("PR")) {
                 
-                // Si el siguiente es un IDE
-                if (posToken.contains("IDE")) {
-                    
-                    // Bandera para eliminación de código
-                    Boolean eliminar = true;
-
-                    // Se debe verificar si este IDE es utilizado
-                    for (int j = 0; j < IDEUtil.size(); j++) {
-
-                        // Si el IDE ha sido utilizado, se marca la bandera de Eliminar como falsa.
-                        if (posToken.equalsIgnoreCase(IDEUtil.get(j))) {
-                            eliminar = false;
-                            break;
-                        }
-                    }
-
-                    // Si la variable se debe eliminar
-                    if (eliminar) {
-                        
-                        // Se salta la lectura de la PR
-                        i++;
-                        
-                        // Mientras no se llegue a un delimitador, saltar tokens.
-                        while (!tokens.get(i).equalsIgnoreCase("DEL")) {
-                            i++;
-                        }
-
-                        // En este caso el valor no sera añadido asi que se continua con el ciclo.
-                        continue;
-                    }
-                    
-                }
-                
-                // Si el anterior token es un parentesis
+                // Si el anterior token es un parentesis.
                 if (preToken.equalsIgnoreCase("PAR2")) {
                     
                     // Se realiza un salto de línea
@@ -1030,35 +963,54 @@ public class analizador {
                 stb.append("\n");
             }
             
-            // Si hay un identificador
-            else if (actualToken.contains("IDE")) {
+            // Instrucción 3: Si hay una asignación.
+            else if (actualToken.equalsIgnoreCase("OAS")) {
                 
-                // Bandera para eliminación de código
-                Boolean eliminar = true;
+                // Se debe agregar el operador.
+                stb.append(actualValor);
                 
-                // Se debe verificar si este IDE es utilizado
-                for (int j = 0; j < IDEUtil.size(); j++) {
+                // Se almacenará el codigo que contiene el IDE anterior en esta variable.
+                String preCodigo = "";
+                
+                // Se analizan todas las variables registradas.
+                for (int j = 0; j < variable.size(); j++) {
                     
-                    // Si el IDE ha sido utilizado, se marca la bandera de Eliminar como falsa.
-                    if (actualToken.equalsIgnoreCase(IDEUtil.get(j))) {
-                        eliminar = false;
+                    // Si se encuentra la variable con el token anterior
+                    if (preValor.equalsIgnoreCase(variable.get(j))) {
+                        
+                        // Se escribe el codigo que contiene.
+                        preCodigo = valorVar.get(j);
+                        
+                        // Se rompe el ciclo.
+                        break;
+                    }
+                    
+                }
+                
+                // Ahora se debe analizar en todos los IDE su valor para la sustitución.
+                for (int j = 0; j < variable.size(); j++) {
+                    
+                    // Se obtiene el valor de las variables y se compara si contienen alguna parte del codigo.
+                    // De ser así (y que no sea la misma variable).
+                    if (preCodigo.contains(valorVar.get(j)) && !preValor.equalsIgnoreCase(variable.get(j))) {
+                        
+                        // Se sustituye la parte del código por la variable.
+                        preCodigo = preCodigo.replace(valorVar.get(j), variable.get(j));
+                        
+                        // Se eliminan los espacios.
+                        preCodigo = preCodigo.replace(" ", "");
+                        stb.append(preCodigo);
+                        
+                        // Se salta todo el análisis de la línea (ya esta optimizado).
+                        while (!tokens.get(i+1).equalsIgnoreCase("DEL")) {
+                            i++;
+                        }
+                        
+                        // Se rompe el ciclo.
                         break;
                     }
                 }
                 
-                // Si la variable se debe eliminar
-                if (eliminar) {
-                    
-                    // Mientras no se llegue a un delimitador, saltar tokens.
-                    while (!tokens.get(i).equalsIgnoreCase("DEL")) {
-                        i++;
-                    }
-                    
-                    // En este caso el valor no sera añadido asi que se continua con el ciclo.
-                    continue;
-                }
-                
-                stb.append(actualValor);
             }
             
             // Con cualquier otro token, se escribe tal cual.
