@@ -1,3 +1,12 @@
-int a;
+int a=1;
 int b=2;
-c=a;
+int c=3;
+int d=4;
+do 
+{double e=4/b;
+do 
+{double f=c+a*d/e;
+d=d+1;}
+while (a>=3);
+double g=b*e+4-b;}
+while (d==4);
