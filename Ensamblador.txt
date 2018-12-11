@@ -1,0 +1,59 @@
+	MOV x, 2
+	MOV y, 1
+	MOV a, 2
+	MOV b, 3.4
+	MOV a, 5
+	JMP do1
+do1:
+	MOV AL, 4
+	MOV AH, 2
+	MUL AL, AH
+	MOV AH, 2
+	MUL AL, AH
+	MOV AH, 0
+	MOV CL, a
+	DIV CL
+	MOV b, AL
+	JMP do2
+do2:
+	MOV AL, 3
+	MOV AH, 2
+	ADD AL, AH
+	MOV x, AL
+	JMP while1
+while1:
+	MOV AL, x
+	CMP AL, 1
+	JL do2
+	JMP while2
+while2:
+	MOV AL, b
+	CMP AL, 9
+	JLE do1
+	JMP do3
+do3:
+	MOV AH, 5
+	MUL AL, AH
+	MOV a, AL
+	JMP while3
+while3:
+	MOV AL, a
+	CMP AL, y
+	JGE do3
+	JMP do3iter2
+do3iter2:
+	MOV AH, 0
+	MOV CL, x
+	DIV CL
+	MOV y, AL
+	JMP while4
+while4:
+	MOV AL, y
+	CMP AL, 1
+	JG do3
+	JMP exit
+exit:
+	MOV AH, 1
+	MUL AL, AH
+	MOV a, AL
+	end

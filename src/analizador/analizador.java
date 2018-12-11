@@ -22,10 +22,11 @@ public class analizador {
     private static ArrayList<String> tipoVar;
     private static ArrayList<String> valorVar;
     private static ArrayList<String> tokens;
-    private static ArrayList<String> valorTokens;
+    private static ArrayList<String> valortokens;
+    private static tripleta tripleta;
     private static Boolean errores;
     private static int numIDE, numOA, numPR, numCE, numCF, numOR, numOB;
-    private static String linea;
+    private static String n;
     
     /**
      * @param codigo
@@ -41,9 +42,9 @@ public class analizador {
         tipoVar = new ArrayList<>();
         valorVar = new ArrayList<>();
         tokens = new ArrayList<>();
-        valorTokens = new ArrayList<>();
+        valortokens = new ArrayList<>();
         numIDE = 0; numOA = 0; numPR = 0; numCE = 0; numCF = 0; numOR = 0; numOB = 0;
-        linea = System.getProperty("line.separator");
+        n = System.getProperty("line.separator");
         
         // Variable que se encarga de identificar si hay errores para desplegar.
         errores = false;
@@ -132,10 +133,10 @@ public class analizador {
                             while (t < tokensReg) {
                                 
                                 // Si el token existe.
-                                if (valorTokens.get(t).equals(palabra[j])) {
+                                if (valortokens.get(t).equals(palabra[j])) {
                                     // Se guarda el token existente.
                                     tokens.add(tokens.get(t));
-                                    valorTokens.add(valorTokens.get(t));
+                                    valortokens.add(valortokens.get(t));
                                     nuevo = false;
                                     break;
                                 }
@@ -148,14 +149,14 @@ public class analizador {
                                 // Se guarda el nuevo token.
                                 numPR++;
                                 tokens.add("PR" +numPR);
-                                valorTokens.add(palabra[j]);
+                                valortokens.add(palabra[j]);
                             }
                         }
                         // Si no hay ningún token, se registra el primero
                         else {
                             numPR++;
                             tokens.add("PR" +numPR);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                         
                         pos++;
@@ -180,10 +181,10 @@ public class analizador {
                             while (t < tokensReg) {
                                 
                                 // Si el token existe.
-                                if (valorTokens.get(t).equals(palabra[j])) {
+                                if (valortokens.get(t).equals(palabra[j])) {
                                     // Se guarda el token existente.
                                     tokens.add(tokens.get(t));
-                                    valorTokens.add(valorTokens.get(t));
+                                    valortokens.add(valortokens.get(t));
                                     nuevo = false;
                                     break;
                                 }
@@ -196,14 +197,14 @@ public class analizador {
                                 // Se guarda el nuevo token.
                                 numPR++;
                                 tokens.add("PR" +numPR);
-                                valorTokens.add(palabra[j]);
+                                valortokens.add(palabra[j]);
                             }
                         }
                         // Si no hay ningún token, se registra el primero
                         else {
                             numPR++;
                             tokens.add("PR" +numPR);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                     
                         pos++;
@@ -223,7 +224,7 @@ public class analizador {
                     
                     // Se registra el token de asignación.
                     tokens.add("OAS");
-                    valorTokens.add("=");
+                    valortokens.add("=");
                     
                     pos++;
                     continue;
@@ -237,7 +238,7 @@ public class analizador {
                     
                     // Se registra el token de delimitador.
                     tokens.add("DEL");
-                    valorTokens.add(";");
+                    valortokens.add(";");
                     
                     pos++;
                     continue;
@@ -256,7 +257,7 @@ public class analizador {
                     
                     // Se registra el token de parentesis.
                     tokens.add("PAR1");
-                    valorTokens.add("(");
+                    valortokens.add("(");
                     
                     pos++;
                     continue;
@@ -275,7 +276,7 @@ public class analizador {
                     
                     // Se registra el token de parentesis.
                     tokens.add("PAR2");
-                    valorTokens.add(")");
+                    valortokens.add(")");
                     
                     pos++;
                     continue;
@@ -289,7 +290,7 @@ public class analizador {
                     
                     // Se registra el token de delimitador.
                     tokens.add("COR1");
-                    valorTokens.add("{");
+                    valortokens.add("{");
                     
                     pos++;
                     continue;
@@ -303,7 +304,7 @@ public class analizador {
                     
                     // Se registra el token de delimitador.
                     tokens.add("COR2");
-                    valorTokens.add("}");
+                    valortokens.add("}");
                     
                     pos++;
                     continue;
@@ -331,10 +332,10 @@ public class analizador {
                             while (t < tokensReg) {
                                 
                                 // Si el token existe.
-                                if (valorTokens.get(t).equals(palabra[j])) {
+                                if (valortokens.get(t).equals(palabra[j])) {
                                     // Se guarda el token existente.
                                     tokens.add(tokens.get(t));
-                                    valorTokens.add(valorTokens.get(t));
+                                    valortokens.add(valortokens.get(t));
                                     nuevo = false;
                                     break;
                                 }
@@ -347,14 +348,14 @@ public class analizador {
                                 // Se guarda el nuevo token.
                                 numCE++;
                                 tokens.add("CE" +numCE);
-                                valorTokens.add(palabra[j]);
+                                valortokens.add(palabra[j]);
                             }
                         }
                         // Si no hay ningún token, se registra el primero
                         else {
                             numCE++;
                             tokens.add("CE" +numCE);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                     
                     pos++;
@@ -391,10 +392,10 @@ public class analizador {
                             while (t < tokensReg) {
                                 
                                 // Si el token existe.
-                                if (valorTokens.get(t).equals(palabra[j])) {
+                                if (valortokens.get(t).equals(palabra[j])) {
                                     // Se guarda el token existente.
                                     tokens.add(tokens.get(t));
-                                    valorTokens.add(valorTokens.get(t));
+                                    valortokens.add(valortokens.get(t));
                                     nuevo = false;
                                     break;
                                 }
@@ -407,14 +408,14 @@ public class analizador {
                                 // Se guarda el nuevo token.
                                 numCF++;
                                 tokens.add("CF" +numCF);
-                                valorTokens.add(palabra[j]);
+                                valortokens.add(palabra[j]);
                             }
                         }
                         // Si no hay ningún token, se registra el primero
                         else {
                             numCF++;
                             tokens.add("CF" +numCF);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                     
                     pos++;
@@ -433,6 +434,14 @@ public class analizador {
                         stb.append(palabra[j]).append(" ");
                     }
                     
+                    // Si se intenta dividir con una variable base int.
+                    if (tipo.equalsIgnoreCase("int") && palabra[j].contains("/")) {
+                        txtError.add("Línea " +numLinea+ ": Pérdida de información al dividir un int.");
+
+                        error = true;
+                        errores = true;
+                    }
+                    
                     // Se agrega el token.
                         if (numOA > 0) {
                             // Primero debemos verificar que el token no exista.
@@ -443,10 +452,10 @@ public class analizador {
                             while (t < tokensReg) {
                                 
                                 // Si el token existe.
-                                if (valorTokens.get(t).equals(palabra[j])) {
+                                if (valortokens.get(t).equals(palabra[j])) {
                                     // Se guarda el token existente.
                                     tokens.add(tokens.get(t));
-                                    valorTokens.add(valorTokens.get(t));
+                                    valortokens.add(valortokens.get(t));
                                     nuevo = false;
                                     break;
                                 }
@@ -459,14 +468,14 @@ public class analizador {
                                 // Se guarda el nuevo token.
                                 numOA++;
                                 tokens.add("OA" +numOA);
-                                valorTokens.add(palabra[j]);
+                                valortokens.add(palabra[j]);
                             }
                         }
                         // Si no hay ningún token, se registra el primero
                         else {
                             numOA++;
                             tokens.add("OA" +numOA);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                     
                     pos++;
@@ -495,10 +504,10 @@ public class analizador {
                             while (t < tokensReg) {
                                 
                                 // Si el token existe.
-                                if (valorTokens.get(t).equals(palabra[j])) {
+                                if (valortokens.get(t).equals(palabra[j])) {
                                     // Se guarda el token existente.
                                     tokens.add(tokens.get(t));
-                                    valorTokens.add(valorTokens.get(t));
+                                    valortokens.add(valortokens.get(t));
                                     nuevo = false;
                                     break;
                                 }
@@ -511,14 +520,14 @@ public class analizador {
                                 // Se guarda el nuevo token.
                                 numOR++;
                                 tokens.add("OR" +numOR);
-                                valorTokens.add(palabra[j]);
+                                valortokens.add(palabra[j]);
                             }
                         }
                         // Si no hay ningún token, se registra el primero
                         else {
                             numOR++;
                             tokens.add("OR" +numOR);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                     
                     pos++;
@@ -547,10 +556,10 @@ public class analizador {
                             while (t < tokensReg) {
                                 
                                 // Si el token existe.
-                                if (valorTokens.get(t).equals(palabra[j])) {
+                                if (valortokens.get(t).equals(palabra[j])) {
                                     // Se guarda el token existente.
                                     tokens.add(tokens.get(t));
-                                    valorTokens.add(valorTokens.get(t));
+                                    valortokens.add(valortokens.get(t));
                                     nuevo = false;
                                     break;
                                 }
@@ -563,14 +572,14 @@ public class analizador {
                                 // Se guarda el nuevo token.
                                 numOB++;
                                 tokens.add("OB" +numOB);
-                                valorTokens.add(palabra[j]);
+                                valortokens.add(palabra[j]);
                             }
                         }
                         // Si no hay ningún token, se registra el primero
                         else {
                             numOB++;
                             tokens.add("OB" +numOB);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                     
                     pos++;
@@ -680,10 +689,10 @@ public class analizador {
                         while (t < tokensReg) {
                             
                             // Si el token existe.
-                            if (valorTokens.get(t).equals(palabra[j])) {
+                            if (valortokens.get(t).equals(palabra[j])) {
                                 // Se guarda el token existente.
                                 tokens.add(tokens.get(t));
-                                valorTokens.add(valorTokens.get(t));
+                                valortokens.add(valortokens.get(t));
                                 nuevo = false;
                             
                                 break;
@@ -697,14 +706,14 @@ public class analizador {
                             // Se guarda el nuevo token.
                             numIDE++;
                             tokens.add("IDE" +numIDE);
-                            valorTokens.add(palabra[j]);
+                            valortokens.add(palabra[j]);
                         }
                     }
                     // Si no hay ningún token, se registra el primero
                     else {
                         numIDE++;
                         tokens.add("IDE" +numIDE);
-                        valorTokens.add(palabra[j]);
+                        valortokens.add(palabra[j]);
                     }
                     
                     // Se verifica la siguiente palabra si no es necesario agregar.
@@ -748,6 +757,9 @@ public class analizador {
         
         // Se genera la tripleta
         generarTriplo();
+        
+        // Se genera el ensamblador
+        generarEnsamblador();
         
         return errores;
     }
@@ -861,230 +873,229 @@ public class analizador {
     public static String[] obtenerValoresTokens() {
         
         // Número de valores de tokens registrados.
-        int tamanio = valorTokens.size();
+        int tamanio = valortokens.size();
         
         // Arreglo que almacena todas las variables.
-        String[] valorTokensArray = new String[tamanio];
+        String[] valortokensArray = new String[tamanio];
         
         // Se recorre el ArrayList de variables.
         for (int i = 0; i < tamanio; i++) {
-            valorTokensArray[i] = valorTokens.get(i);
+            valortokensArray[i] = valortokens.get(i);
         }
         
         // Se regresan todas las variables.
-        return valorTokensArray;
+        return valortokensArray;
     }
     
-    // Método para guardar el archivo de texto.
-    public static void guardarArchivo(String archivo, String texto) {
-        
-        try (FileWriter fw = new FileWriter(archivo)) {
-            fw.write(texto);
-        }
-        catch (IOException ex) {
-            System.out.println("No se pudo guardar el archivo.");
-        }
-    }
-    
-    // Metodo encargado de la optimización del código.
+    // aquí se realiza la optimización de código y tokens.
     public static void optimizarCodigo() {
         
-        // Objeto para la construcción de strings.
+        // aquí se almacenan el texto optimizado.
         StringBuilder stb = new StringBuilder();
         
-        // Listas que almacenaran los tokens optimizados.
-        ArrayList<String> tokensOpt = new ArrayList<>();
-        ArrayList<String> valorTokensOpt = new ArrayList<>();
+        // listas que almacenan la optimizacion.
+        ArrayList<String> tokensoptimizados = new ArrayList<>();
+        ArrayList<String> valoresoptimizados = new ArrayList<>();
         
-        // Se recorren los tokens
-        int tamanioTokens = tokens.size();
+        // se analizan los tokens registrados.
+        int tamanio = tokens.size();
         
-        for (int i = 0; i < tamanioTokens; i++) {
-            String actualToken = tokens.get(i);
-            String actualValor = valorTokens.get(i);
-            String preToken = "";
-            String preValor = "";
-            String posToken = "";
-            Boolean ultimo = true;
+        for (int i = 0; i < tamanio; i++) {
+            String tokenactual = tokens.get(i);
+            String valoractual = valortokens.get(i);
+            String tokenanterior = "";
+            String valoranterior = "";
+            String tokenposterior = "";
+            Boolean tokenfinal = true;
             
-            // Se guarda el token anterior necesario para algunas comprobaciones.
+            // se guarda el token anterior de ser posible.
             if (i > 0) {
-                preToken = tokens.get(i-1);
-                preValor = valorTokens.get(i-1);
+                tokenanterior = tokens.get(i-1);
+                valoranterior = valortokens.get(i-1);
             }
             
-            // Se guarda el token posterior necesario para algunas comprobaciones.
-            if (i < tamanioTokens-1) {
-                posToken = tokens.get(i+1);
-                ultimo = false;
+            // se guarda el token posterior de ser posible.
+            if (i < tamanio-1) {
+                tokenposterior = tokens.get(i+1);
+                tokenfinal = false;
             }
             
-            // Si hay un delimitador.
-            if (actualToken.equalsIgnoreCase("DEL")) {
+            // si nos encontramos con un delimitador.
+            if (tokenactual.equalsIgnoreCase("DEL")) {
                 
-                // Si no es el último token.
-                if (!ultimo) {
+                // mientras no sea el tokenfinal token.
+                if (!tokenfinal) {
                     
-                    // Verificar si el siguiente token es un corchete.
-                    if (posToken.equalsIgnoreCase("COR2")) {
+                    // se checa si lo siguiente es un corchete terminal.
+                    if (tokenposterior.equalsIgnoreCase("COR2")) {
                         
-                        // Se agrega el delimitador tal cual.
-                        stb.append(actualValor);
-                        tokensOpt.add(actualToken);
-                        valorTokensOpt.add(actualValor);
+                        // de ser asi se agrega el delimitador tal cual.
+                        stb.append(valoractual);
+                        tokensoptimizados.add(tokenactual);
+                        valoresoptimizados.add(valoractual);
                     }
                     
-                    // Si no es un corchete
+                    // si no hay un corchete
                     else {
                         
-                        // Se agrega el delimitador junto a un salto de línea.
-                        stb.append(actualValor).append(linea);
-                        tokensOpt.add(actualToken);
-                        valorTokensOpt.add(actualValor);
+                        // se agrega el delimitador junto a un salto de linea.
+                        stb.append(valoractual+n);
+                        tokensoptimizados.add(tokenactual);
+                        valoresoptimizados.add(valoractual);
                     }
                 }
                 
-                // Si es el último token.
+                // si este es el token final.
                 else {
                     
-                    // Se agrega tal cual el delimitador.
-                    stb.append(actualValor);
-                    tokensOpt.add(actualToken);
-                    valorTokensOpt.add(actualValor);
+                    // se agrega solamente el delimitador.
+                    stb.append(valoractual);
+                    tokensoptimizados.add(tokenactual);
+                    valoresoptimizados.add(valoractual);
                 }
             }
             
-            // Si hay una palabra reservada
-            else if (actualToken.contains("PR")) {
+            // si nos encontramos con una palabra reservada.
+            else if (tokenactual.contains("PR")) {
                 
-                // Si el anterior token es un parentesis.
-                if (preToken.equalsIgnoreCase("PAR2")) {
+                // si el token anterior era un parentesis terminal.
+                if (tokenanterior.equalsIgnoreCase("PAR2")) {
                     
-                    // Se realiza un salto de línea
-                    stb.append(linea);
+                    // se agrega un salto de linea
+                    stb.append(n);
                 }
                 
-                // Se escribe la palabra del token y un espacio.
-                stb.append(actualValor).append(" ");
-                tokensOpt.add(actualToken);
-                valorTokensOpt.add(actualValor);
+                // a continuacion se agrega la palabra del token y un espacio.
+                stb.append(valoractual+" ");
+                tokensoptimizados.add(tokenactual);
+                valoresoptimizados.add(valoractual);
                 
             }
             
-            // Si hay un corchete inicial
-            else if (actualToken.equalsIgnoreCase("COR1")) {
+            // si nos encontramos con un corchete inicial.
+            else if (tokenactual.equalsIgnoreCase("COR1")) {
                 
-                // Se escribe un salto de línea y se escribe el corchete inicial.
-                stb.append(linea);
-                stb.append(actualValor);
-                tokensOpt.add(actualToken);
-                valorTokensOpt.add(actualValor);
+                // se agrega un salto de linea y el corchete inicial.
+                stb.append(n+valoractual);
+                tokensoptimizados.add(tokenactual);
+                valoresoptimizados.add(valoractual);
             }
             
-            // Si hay un corchete final
-            else if (actualToken.equalsIgnoreCase("COR2")) {
+            // si nos encontramos con un corchete final.
+            else if (tokenactual.equalsIgnoreCase("COR2")) {
                 
-                // Se escribe el corchete final y un salto de línea.
-                stb.append(actualValor);
-                tokensOpt.add(actualToken);
-                valorTokensOpt.add(actualValor);
-                stb.append(linea);
+                // se agrega el corchete final y un salto de linea.
+                stb.append(valoractual);
+                tokensoptimizados.add(tokenactual);
+                valoresoptimizados.add(valoractual);
+                stb.append(n);
             }
             
-            // Instrucción 3: Si hay una asignación.
-            else if (actualToken.equalsIgnoreCase("OAS")) {
+            // aqui empieza la optimizacion de la instruccion, detectando una asignacion.
+            else if (tokenactual.equalsIgnoreCase("OAS")) {
                 
-                // Se debe agregar el operador.
-                stb.append(actualValor);
-                tokensOpt.add(actualToken);
-                valorTokensOpt.add(actualValor);
+                // se agrega la asignacion.
+                stb.append(valoractual);
+                tokensoptimizados.add(tokenactual);
+                valoresoptimizados.add(valoractual);
                 
-                // Bandera indicadora de que se ha encontrado el reemplazo
-                Boolean reemplazo = false;
+                // bandera para indicar que la optimizacion se aplicara.
+                Boolean optimizacion = false;
                 
-                // Si hay mas de un reemplazo, se almacena en un ArrayList.
-                ArrayList<String> reemplazos = new ArrayList<>();
+                // se almacena en esta variable lo ultimo que se le ha asignado.
+                String codigotoken = "";
                 
-                // Se almacenará el codigo que contiene el IDE anterior en esta variable.
-                String preCodigo = "";
-                
-                // Se analizan todas las variables registradas.
+                // comienza el primer recorrido de variables.
                 for (int j = 0; j < variable.size(); j++) {
                     
-                    // Si la variable contiene de valor 1, se ignora.
-                    if (valorVar.get(j).equalsIgnoreCase("1 ") || valorVar.get(j).equalsIgnoreCase("null")) {
+                    // si la variable contiene 1 o null se ignora la optimizacion.
+                    if (valorVar.get(j).equalsIgnoreCase("1") || valorVar.get(j).equalsIgnoreCase("null")) {
                         continue;
                     }
                     
-                    // Si se encuentra la variable con el token anterior
-                    if (preValor.equalsIgnoreCase(variable.get(j))) {
+                    // si se encuentra el valor de la variable que se busca
+                    if (valoranterior.equalsIgnoreCase(variable.get(j))) {
                         
-                        // Se escribe el codigo que contiene.
-                        preCodigo = valorVar.get(j);
+                        // se escribe el codigo que la misma contiene.
+                        codigotoken = valorVar.get(j);
                         
-                        // Se rompe el ciclo.
+                        // se termina el ciclo.
                         break;
                     }
                     
                 }
                 
-                // Ahora se debe analizar en todos los IDE su valor para la sustitución.
+                // en esta parte se analizan los identificadores para buscar si es necesario sustituir.
                 for (int j = 0; j < variable.size(); j++) {
                     
-                    // Se obtiene el valor de las variables y se compara si contienen alguna parte del codigo.
-                    // De ser así (y que no sea la misma variable).
-                    if (preCodigo.contains(valorVar.get(j)) && !preValor.equalsIgnoreCase(variable.get(j)) && !valorVar.get(j).equalsIgnoreCase("1 ") && !valorVar.get(j).equalsIgnoreCase("null")) {
+                    // si el codigo tiene una parte similar, se reemplaza.
+                    if (codigotoken.contains(valorVar.get(j)) && !valoranterior.equalsIgnoreCase(variable.get(j)) && !valorVar.get(j).equalsIgnoreCase("1 ") && !valorVar.get(j).equalsIgnoreCase("null")) {
                         
-                        // Se guarda el caracter anterior
-                        int charAnt = preCodigo.indexOf(valorVar.get(j)) - 1;
+                        // se guarda la posicion del caracter anterior.
+                        int caracteranterior = codigotoken.indexOf(valorVar.get(j)) - 1;
                         
-                        // Pero si la posición es -1, se evita una posible excepcion.
-                        if (charAnt == -1) {
-                            charAnt = 0;
+                        // si se encuentra al principio, se ignora el caracter anterior.
+                        if (caracteranterior == -1) {
+                            caracteranterior = 0;
                         }
                         
-                        // Si antes de la parte a reemplazar no hay un espacio, se ignora.
-                        if (preCodigo.charAt(charAnt) != ' ' && charAnt != 0) {
+                        // si no se encuentra un espacio antes, se ignora este reemplazo.
+                        if (codigotoken.charAt(caracteranterior) != ' ' && caracteranterior != 0) {
                             continue;
                         }
                         
-                        // Se sustituye la parte del código por la variable.
-                        preCodigo = preCodigo.replace(valorVar.get(j), variable.get(j)+ " ");
+                        // se aplica la optimizacion.
+                        codigotoken = codigotoken.replace(valorVar.get(j), variable.get(j)+ " ");
                         
-                        // Bandera para indicar que si se realizo una sustitucion.
-                        reemplazo = true;
+                        // y se activa la bandera de que si ocurrio la optimizacion.
+                        optimizacion = true;
                     }
                 }
                 
-                if (reemplazo) {
+                // al si haber optimizacion
+                if (optimizacion) {
                     
-                    // Se guardan los tokens correspondientes al codigo.
-                    String[] preCodigoTokens = preCodigo.split("\\s");
+                    // el codigo se divide por espacios para la busqueda de tokens.
+                    String[] tokensdelcodigo = codigotoken.split("\\s");
                     
-                    // Se verifica lo capturado.
-                    for (int j = 0; j < preCodigoTokens.length ; j++) {
+                    // se recorre el codigo
+                    for (int j = 0; j < tokensdelcodigo.length ; j++) {
                         
-                        // Se lee el arreglo de tokens
+                        // se recorren todos los tokens
                         for (int k = 0 ; k < tokens.size() ; k ++) {
                             
-                            // Si el codigo concuerda con el valor del token.
-                            if (preCodigoTokens[j].equalsIgnoreCase(valorTokens.get(k))) {
+                            // si esta parte del codigo es un "1" y a continuacion tiene una multiplicacion, se elimina.
+                            if (tokensdelcodigo[j].equalsIgnoreCase("1") && (tokensdelcodigo[j+1].equalsIgnoreCase("(") || tokensdelcodigo[j+1].equalsIgnoreCase("*"))) {
+                                tokensdelcodigo[j] = "";
+
+                                // si es un asterisco se elimina.
+                                if (tokensdelcodigo[j+1].equalsIgnoreCase("*")) {
+                                    tokensdelcodigo[j] = "";
+                                    j++;
+                                }
+
+                                // se termina el ciclo.
+                                break;
+                            }
+                            
+                            // si la parte del codigo corresponde a un token.
+                            if (tokensdelcodigo[j].equalsIgnoreCase(valortokens.get(k))) {
                                 
-                                // Se almacena en la nueva lista de tokens.
-                                tokensOpt.add(tokens.get(k));
-                                valorTokensOpt.add(valorTokens.get(k));
+                                // se almacena la palabra del codigo con su token y valor.
+                                tokensoptimizados.add(tokens.get(k));
+                                valoresoptimizados.add(valortokens.get(k));
                                 
-                                // Se termina el ciclo
+                                // se termina el ciclo
                                 break;
                             }
                         }
                     }
                     
-                    // Se eliminan los espacios.
-                    preCodigo = preCodigo.replace(" ", "");
-                    stb.append(preCodigo);
+                    // se eliminan los espacios.
+                    codigotoken = codigotoken.replace(" ", "");
+                    stb.append(codigotoken);
                         
-                    // Se salta todo el análisis de la línea (ya esta optimizado).
+                    // y se salta el analisis de toda la linea.
                     while (!tokens.get(i+1).equalsIgnoreCase("DEL")) {
                         i++;
                     }
@@ -1094,114 +1105,97 @@ public class analizador {
                 
             }
             
-            // Con cualquier otro token, se escribe tal cual.
+            // cualquier otro caso, se guarda.
             else {
-                stb.append(actualValor);
-                tokensOpt.add(actualToken);
-                valorTokensOpt.add(actualValor);
+                stb.append(valoractual);
+                tokensoptimizados.add(tokenactual);
+                valoresoptimizados.add(valoractual);
             }
             
             
         }
         
-        // Se almacenan las listas con los nuevos tokens
-        tokens = tokensOpt;
-        valorTokens = valorTokensOpt;
+        // el codigo optimizado se guarda en las listas
+        tokens = tokensoptimizados;
+        valortokens = valoresoptimizados;
         
-        // Se guarda el código optimizado
-        guardarArchivo("Codigo Optimizado.txt", stb.toString());
+        // y se guarda el codigo optimizado en el archivo
+        try (FileWriter fw = new FileWriter("Codigo Optimizado.txt")) {
+            fw.write(stb.toString());
+        }
+        catch (IOException ex) {
+            System.out.println("No se pudo guardar el archivo.");
+        }
     }
     
     public static void generarTriplo () {
         
-        // Variable que apunta el token que se esta trabajando
-        int apun = 0;
-        
         // Indica el numero de instruccion.
-        int numIns = 1;
+        int numeroinstruccion = 1;
         
-        // Numero de tripleta
-        int numTrip = 1;
+        // Numero de temporal
+        int numerotemporal = 1;
         
         // Numero de condicion
-        int numCon = 1;
-        
-        // Variable que almacena la tripleta actual
-        String[] tripleta = new String[3];
+        int numwhile = 1;
         
         // Variables que almacenaran la tripleta
-        ArrayList<Integer> column1 = new ArrayList<>();
-        ArrayList<String> column2 = new ArrayList<>();
-        ArrayList<String> column3 = new ArrayList<>();
-        ArrayList<String> column4 = new ArrayList<>();
+        ArrayList<Integer> numeroln = new ArrayList<>();
+        ArrayList<String> objeto = new ArrayList<>();
+        ArrayList<String> fuente = new ArrayList<>();
+        ArrayList<String> operador = new ArrayList<>();
+        ArrayList<Integer> lugardo = new ArrayList<>();
+        ArrayList<Integer> lugarwhile = new ArrayList<>();
+        ArrayList<Integer> numinsdo = new ArrayList<>();
         
-        // Listas que contienen las posiciones de los ciclos
-        ArrayList<Integer> insDo = new ArrayList<>();
-        int countWhile = -1;
-        
-        // Variables que almacenan el token de división y multiplicación.
-        String division = "";
-        String multiplicacion = "";
-        
-        try {
-            division = tokens.get(valorTokens.indexOf("/"));
-        }
-        catch (ArrayIndexOutOfBoundsException ex) {
-            
-        }
-        
-        try {
-            multiplicacion = tokens.get(valorTokens.indexOf("*"));
-        }
-        catch (ArrayIndexOutOfBoundsException ex) {
-            
-        }
-        
-        // Empieza la diversión, se verifica token por token.
+        // se verifican los tokens uno por uno.
         for (int i = 0; i < tokens.size(); i++) {
             
-            // Si el token es una palabra reservada, se ignora.
+            // cuando es una palabra reservada
             if(tokens.get(i).contains("PR")) {
                 
-                if (valorTokens.get(i).equalsIgnoreCase("do")) {
-                    insDo.add(numIns);
-                    countWhile++;
+                // si es un "do" se registra.
+                if (valortokens.get(i).equalsIgnoreCase("do")) {
+                    lugardo.add(numeroinstruccion);
+                    numinsdo.add(numeroinstruccion);
                 }
                 
-                // Si hay un while
-                else if (valorTokens.get(i).equalsIgnoreCase("while")) {
+                // si es un "while".
+                else if (valortokens.get(i).equalsIgnoreCase("while")) {
+                    
+                    // se registra
+                    lugarwhile.add(numeroinstruccion);
                     
                     // Se guarda en la tripleta la variable a comprobar
-                    column1.add(numIns);
-                    column2.add("T" +numTrip);
-                    column3.add(valorTokens.get(i+2));
-                    column4.add("=");
-                    numIns++;
+                    numeroln.add(numeroinstruccion);
+                    objeto.add("T" +numerotemporal);
+                    fuente.add(valortokens.get(i+2));
+                    operador.add("=");
+                    numeroinstruccion++;
                     
                     // Se analiza con que se debe comparar
-                    column1.add(numIns);
-                    column2.add("T" +numTrip);
-                    column3.add(valorTokens.get(i+4));
-                    column4.add(valorTokens.get(i+3));
-                    numIns++;
+                    numeroln.add(numeroinstruccion);
+                    objeto.add("T" +numerotemporal);
+                    fuente.add(valortokens.get(i+4));
+                    operador.add(valortokens.get(i+3));
+                    numeroinstruccion++;
                     
                     // Si es verdadero, debe continuar con la siguiente instruccion.
-                    int sigIns = numIns + 2;
-                    column1.add(numIns);
-                    column2.add("TR" +numCon);
-                    column3.add("TRUE");
-                    column4.add(insDo.get(countWhile)+"");
-                    numIns++;
+                    int sigIns = numeroinstruccion + 2;
+                    numeroln.add(numeroinstruccion);
+                    objeto.add("TR" +numwhile);
+                    fuente.add("TRUE");
+                    operador.add(numinsdo.remove(numinsdo.size()-1)+"");
+                    numeroinstruccion++;
                     
                     // Si es falso, se debe regresar al anterior do
-                    column1.add(numIns);
-                    column2.add("TR" +numCon);
-                    column3.add("FALSE");
-                    column4.add(sigIns+"");
-                    numIns++;
-                    countWhile--;
-                    numTrip++;
-                    numCon++;
+                    numeroln.add(numeroinstruccion);
+                    objeto.add("TR" +numwhile);
+                    fuente.add("FALSE");
+                    operador.add(sigIns+"");
+                    numeroinstruccion++;
+                    numerotemporal++;
+                    numwhile++;
                     
                 }
                 
@@ -1218,86 +1212,634 @@ public class analizador {
                 if (tokens.get(i+2).equalsIgnoreCase("DEL")) {
                     
                     // De ser así estamos ante una asignación simple y la tripleta.
-                    column1.add(numIns);
-                    column2.add(valorTokens.get(i-1));
-                    column3.add(valorTokens.get(i+1));
-                    column4.add("=");
-                    numIns++;
+                    numeroln.add(numeroinstruccion);
+                    objeto.add(valortokens.get(i-1));
+                    fuente.add(valortokens.get(i+1));
+                    operador.add("=");
+                    numeroinstruccion++;
                 }
                 
                 // En este caso, tenemos una probable operación matemática.
                 else {
                     
                     // Variable a la que se asignará el resultado final.
-                    String variableAsig = valorTokens.get(i-1);
+                    String variableAsig = valortokens.get(i-1);
                     
-                    // Se guarda en una lista nueva la operacion.
-                    ArrayList<String[]> tokensOp = new ArrayList<>();
-                    String[] token = new String[2];
+                    // se almacenan los tokens de la operacion.
+                    ArrayList<String> tokensoperacion = new ArrayList<>();
                     
                     // Saltamos el guardado del operador de asignación.
                     i++;
                     
                     while (!tokens.get(i).equalsIgnoreCase("DEL")) {
-                        token = new String[2];
-                        token[0] = tokens.get(i);
-                        token[1] = valorTokens.get(i);
-                        tokensOp.add(token);
+                        tokensoperacion.add(valortokens.get(i));
                         i++;
                     }
                     
                     // Se va recorriendo la lista hasta que no queden variables por comparar
-                    while (tokensOp.size() > 1) {
+                    while (tokensoperacion.size() > 1) {
                         
-                        token = new String[2];
+                        // Si hay un parentesis en la operación.
+                        if (tokensoperacion.indexOf(")") != -1) {
+                            
+                            // Se almacenan las posiciones.
+                            int posFin = tokensoperacion.indexOf(")");
+                            int posIni = posFin - 2;
+                            
+                            // Se revisa que antes dos tokens anteriores no sean "(".
+                            if (!tokensoperacion.get(posIni).equalsIgnoreCase("(")) {
+                                
+                                // Si hay una multiplicación en la operación.
+                                if (tokensoperacion.lastIndexOf("*") != -1) {
+
+                                    // Se almacena la última variable en el triplo y se elimina de la lista.
+                                    numeroln.add(numeroinstruccion);
+                                    objeto.add("T" +numerotemporal);
+                                    fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("*")+1));
+                                    operador.add("=");
+                                    numeroinstruccion++;
+
+                                    // En el triplo se almacena la operacion realizada.
+                                    numeroln.add(numeroinstruccion);
+                                    objeto.add("T" +numerotemporal);
+                                    fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("*")-1));
+                                    operador.add(tokensoperacion.get(tokensoperacion.lastIndexOf("*")));
+                                    numeroinstruccion++;
+
+                                    // Se agrega a la lista el triplo realizado.
+                                    tokensoperacion.set(tokensoperacion.lastIndexOf("*"),"T" +numerotemporal);
+
+                                    // Se aumenta el contador del triplo
+                                    numerotemporal++;
+
+                                    continue;
+                                }
+
+                                // Si hay una division en la operación.
+                                else if (tokensoperacion.lastIndexOf("/") != -1) {
+
+                                    // Se almacena la última variable en el triplo y se elimina de la lista.
+                                    numeroln.add(numeroinstruccion);
+                                    objeto.add("T" +numerotemporal);
+                                    fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("/")+1));
+                                    operador.add("=");
+                                    numeroinstruccion++;
+
+                                    // En el triplo se almacena la operacion realizada.
+                                    numeroln.add(numeroinstruccion);
+                                    objeto.add("T" +numerotemporal);
+                                    fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("/")-1));
+                                    operador.add(tokensoperacion.get(tokensoperacion.lastIndexOf("/")));
+                                    numeroinstruccion++;
+
+                                    // Se agrega a la lista el triplo realizado.
+                                    tokensoperacion.set(tokensoperacion.lastIndexOf("/"),"T" +numerotemporal);
+
+                                    // Se aumenta el contador del triplo
+                                    numerotemporal++;
+
+                                    continue;
+                                }
+
+                                // Si solo quedan sumas y restas.
+                                else {
+
+                                    // Se almacena la última variable en el triplo y se elimina de la lista.
+                                    numeroln.add(numeroinstruccion);
+                                    objeto.add("T" +numerotemporal);
+                                    fuente.add(tokensoperacion.remove(tokensoperacion.size()-1));
+                                    operador.add("=");
+                                    numeroinstruccion++;
+
+                                    // En el triplo se almacena la operacion realizada.
+                                    numeroln.add(numeroinstruccion);
+                                    objeto.add("T" +numerotemporal);
+                                    operador.add(tokensoperacion.remove(tokensoperacion.size()-1));
+                                    fuente.add(tokensoperacion.remove(tokensoperacion.size()-1));
+                                    numeroinstruccion++;
+
+                                    // Se agrega a la lista el triplo realizado.
+                                    tokensoperacion.add("T" +numerotemporal);
+
+                                    // Se aumenta el contador del triplo
+                                    numerotemporal++;
+                                }
+                                
+                            }
+                            
+                            // En este caso, la operación no tiene mas operaciones alrededor
+                            else {
+                                
+                                // Primero debemos comprobar que no estemos en el final del lado derecho.
+                                if (posFin < tokensoperacion.size()-1) {
+                                    
+                                    // Se verifica que haya una suma, resta o parentesis final del lado derecho
+                                    if (tokensoperacion.get(posFin+1).equalsIgnoreCase("+") || tokensoperacion.get(posFin+1).equalsIgnoreCase("-") || tokensoperacion.get(posFin+1).equalsIgnoreCase(")")) {
+                                        
+                                        // De ser así, se elimina el parentesis
+                                        tokensoperacion.remove(posFin);
+                                    }
+                                    
+                                    // En cualquier otro caso, se cambia el parentesis por una multiplicación
+                                    else {
+                                        tokensoperacion.set(posFin, "*");
+                                    }
+                                        
+                                }
+                                
+                                // Al ser el final, solamente se elimina el parentesis.
+                                else {
+                                    tokensoperacion.remove(posFin);
+                                }
+                                
+                                // Ahora debemos comprobar que no estemos al principio del lado izquierdo.
+                                if (posIni > 0) {
+                                    // Se verifica que haya una suma, resta o parentesis del lado izquierdo.
+                                    if (tokensoperacion.get(posIni-1).equalsIgnoreCase("+") || tokensoperacion.get(posIni-1).equalsIgnoreCase("-") || tokensoperacion.get(posIni-1).equalsIgnoreCase(")") || tokensoperacion.get(posIni-1).equalsIgnoreCase("(")) {
+                                        
+                                        // De ser así, se elimina el parentesis
+                                        tokensoperacion.remove(posIni);
+                                    }
+                                    
+                                    // En cualquier otro caso, se cambia el parentesis por una multiplicación
+                                    else {
+                                        tokensoperacion.set(posIni, "*");
+                                    }
+                                    
+                                }
+                                
+                                // Al ser el principio, solamente se elimina el parentesis.
+                                else {
+                                    tokensoperacion.remove(posIni);
+                                }
+                                
+                            }
+                            
+                            continue;
+                        }
                         
-                        // Se almacena la última variable en el triplo y se elimina de la lista.
-                        column1.add(numIns);
-                        column2.add("T" +numTrip);
-                        column3.add(tokensOp.remove(tokensOp.size()-1)[1]);
-                        column4.add("=");
-                        numIns++;
+                        // Si hay una multiplicación en la operación.
+                        else if (tokensoperacion.lastIndexOf("*") != -1) {
+                            
+                            // Se almacena la última variable en el triplo y se elimina de la lista.
+                            numeroln.add(numeroinstruccion);
+                            objeto.add("T" +numerotemporal);
+                            fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("*")+1));
+                            operador.add("=");
+                            numeroinstruccion++;
+
+                            // En el triplo se almacena la operacion realizada.
+                            numeroln.add(numeroinstruccion);
+                            objeto.add("T" +numerotemporal);
+                            fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("*")-1));
+                            operador.add(tokensoperacion.get(tokensoperacion.lastIndexOf("*")));
+                            numeroinstruccion++;
+
+                            // Se agrega a la lista el triplo realizado.
+                            tokensoperacion.set(tokensoperacion.lastIndexOf("*"),"T" +numerotemporal);
+                            
+                            // Se aumenta el contador del triplo
+                            numerotemporal++;
+                            
+                            continue;
+                        }
                         
-                        // En el triplo se almacena la operacion realizada.
-                        column1.add(numIns);
-                        column2.add("T" +numTrip);
-                        column4.add(tokensOp.remove(tokensOp.size()-1)[1]);
-                        column3.add(tokensOp.remove(tokensOp.size()-1)[1]);
-                        numIns++;
+                        // Si hay una division en la operación.
+                        else if (tokensoperacion.lastIndexOf("/") != -1) {
+                            
+                            // Se almacena la última variable en el triplo y se elimina de la lista.
+                            numeroln.add(numeroinstruccion);
+                            objeto.add("T" +numerotemporal);
+                            fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("/")+1));
+                            operador.add("=");
+                            numeroinstruccion++;
+
+                            // En el triplo se almacena la operacion realizada.
+                            numeroln.add(numeroinstruccion);
+                            objeto.add("T" +numerotemporal);
+                            fuente.add(tokensoperacion.remove(tokensoperacion.lastIndexOf("/")-1));
+                            operador.add(tokensoperacion.get(tokensoperacion.lastIndexOf("/")));
+                            numeroinstruccion++;
+
+                            // Se agrega a la lista el triplo realizado.
+                            tokensoperacion.set(tokensoperacion.lastIndexOf("/"),"T" +numerotemporal);
+                            
+                            // Se aumenta el contador del triplo
+                            numerotemporal++;
+                            
+                            continue;
+                        }
                         
-                        // Se agrega a la lista el triplo realizado.
-                        token[0] = "T" +numTrip;
-                        token[1] = "T" +numTrip;
-                        tokensOp.add(token);
+                        // Si solo quedan sumas y restas.
+                        else {
+                            
+                            // Se almacena la última variable en el triplo y se elimina de la lista.
+                            numeroln.add(numeroinstruccion);
+                            objeto.add("T" +numerotemporal);
+                            fuente.add(tokensoperacion.remove(tokensoperacion.size()-1));
+                            operador.add("=");
+                            numeroinstruccion++;
+
+                            // En el triplo se almacena la operacion realizada.
+                            numeroln.add(numeroinstruccion);
+                            objeto.add("T" +numerotemporal);
+                            operador.add(tokensoperacion.remove(tokensoperacion.size()-1));
+                            fuente.add(tokensoperacion.remove(tokensoperacion.size()-1));
+                            numeroinstruccion++;
+
+                            // Se agrega a la lista el triplo realizado.
+                            tokensoperacion.add("T" +numerotemporal);
+                            
+                            // Se aumenta el contador del triplo
+                            numerotemporal++;
+                        }
                         
-                        numTrip++;
                     }
                     
                     // El resultado final es almacenado en la variable
-                    column1.add(numIns);
-                    column2.add(variableAsig);
-                    column3.add(tokensOp.get(0)[1]);
-                    column4.add("=");
-                    numIns++;
+                    numeroln.add(numeroinstruccion);
+                    objeto.add(variableAsig);
+                    fuente.add(tokensoperacion.get(0));
+                    operador.add("=");
+                    numeroinstruccion++;
                     
                 }
             }
         }
         
         // Ahora se genera el texto de la tripleta.
-        StringBuilder texto = new StringBuilder("Instrucción\tD.O\tD.F\tO");
+        StringBuilder stb = new StringBuilder("\tCódigo objeto\tCódigo fuente\tOperador");
         
-        texto.append(linea);
-        for (int i = 0; i < column1.size(); i++) {
-            texto.append(column1.get(i)).append("\t\t")
-                    .append(column2.get(i)).append("\t")
-                    .append(column3.get(i)).append("\t")
-                    .append(column4.get(i)).append(linea);
+        stb.append(n);
+        for (int i = 0; i < numeroln.size(); i++) {
+            stb.append(numeroln.get(i)).append("\t")
+                    .append(objeto.get(i)).append("\t\t")
+                    .append(fuente.get(i)).append("\t\t")
+                    .append(operador.get(i)).append(n);
         }
-        texto.append(column1.size()+1).append("\t\t...\t...\t...");
+        stb.append(numeroln.size()+1).append("\t...\t\t...\t\t...");
+        
+        // se guarda la tripleta
+        tripleta = new tripleta(numeroln, objeto, fuente, operador, lugardo, lugarwhile);
         
         // Se guarda el archivo.
-        guardarArchivo("Tripleta.txt", texto.toString());
+        try (FileWriter fw = new FileWriter("Tripleta.txt")) {
+            fw.write(stb.toString());
+        }
+        catch (IOException ex) {
+            System.out.println("No se pudo guardar el archivo.");
+        }
+    }
+    
+    public static void generarEnsamblador() {
+        
+        // Se crean variables referentes a los registros.
+        String AH = "";
+        String AL = "";
+        String CL = "";
+        
+        // Variables con el numero de ciclo y condicion.
+        int numdo = 1;
+        int numwhile = 1;
+        
+        // Se guarda la posición del primer do y while.
+        int numinsdo = 0;
+        int numinswhile = 0;
+        try {
+            numinsdo = tripleta.lugardo.remove(0) - 1;
+            numinswhile = tripleta.lugarwhile.remove(0) - 1;
+        }
+        catch (IndexOutOfBoundsException ex) {
+            // No hay ciclos.
+            numinsdo = -1;
+            numinswhile = -1;
+        }
+        
+        // Pila que almacena siempre el ultimo ciclo.
+        ArrayList<Integer> ultdo = new ArrayList<>();
+        
+        // En dado caso de que la pila se vacíe antes, se usa este String.
+        String finaldo = "";
+        
+        // Variable que contendrá el código ensamblador
+        StringBuilder stb = new StringBuilder();
+        
+        // Lo divertido del ensamblador comienza en esta parte.
+        for (int i = 0; i < tripleta.numeroln.size(); i++) {
+            
+            // Se verifica si estamos ante una instruccion do.
+            if (i == numinsdo) {
+                
+                finaldo = "do" + numdo;
+                stb.append(finaldo+":"+n);
+                ultdo.add(numdo);
+                numdo++;
+                
+                // Se elimina la posicion de este do.
+                try {
+                    while (numinsdo == tripleta.lugardo.get(0) - 1) {
+                        numinsdo = tripleta.lugardo.remove(0) - 1;
+                    }
+                    numinsdo = tripleta.lugardo.remove(0) - 1;
+                }
+                catch (IndexOutOfBoundsException ex) {
+                    // No hay más ciclos.
+                    numinsdo = -1;
+                }
+            }
+            
+            // Si estamos ante una instruccion while.
+            if (i == numinswhile) {
+                
+                stb.append("while"+numwhile+":"+n);
+                numwhile++;
+                
+                /*
+                // Se limpia lo que habia en AL.
+                if (!AL.isEmpty()) {
+                    stb.append("\tMOV AL, 0;").append(linea);
+                    AL = "";
+                }
+                */
+                
+                // Se pasa la variable a comparar a AL.
+                stb.append("\tMOV AL, "+tripleta.fuente.get(i)+n);
+                AL = tripleta.fuente.get(i);
+                i++;
+                
+                // Ahora se compara lo que tiene AL.
+                stb.append("\tCMP AL, "+tripleta.fuente.get(i)+n);
+                AL = tripleta.fuente.get(i);
+                
+                int posciclo = 0;
+                
+                // Se procede a leer que comparación se esta realizando.
+                // Si se trata de un menor.
+                if (tripleta.operador.get(i).equalsIgnoreCase("<")) {
+                    try {
+                        posciclo = ultdo.remove(ultdo.size()-1);
+                        stb.append("\tJL do" +posciclo+n);
+                    }
+                    catch (ArrayIndexOutOfBoundsException ex) {
+                        stb.append("\tJL "+finaldo+n);
+                        finaldo = "";
+                    }
+                    
+                }
+                
+                // Si se trata de un menor o igual que.
+                else if (tripleta.operador.get(i).equalsIgnoreCase("<=")) {
+                    try {
+                        posciclo = ultdo.remove(ultdo.size()-1);
+                        stb.append("\tJLE do"+posciclo+n);
+                    }
+                    catch (ArrayIndexOutOfBoundsException ex) {
+                        stb.append("\tJLE "+finaldo+n);
+                        finaldo = "";
+                    }
+                }
+                
+                // Si se trata de un mayor.
+                else if (tripleta.operador.get(i).equalsIgnoreCase(">")) {
+                    try {
+                        posciclo = ultdo.remove(ultdo.size()-1);
+                        stb.append("\tJG do"+posciclo+n);
+                    }
+                    catch (ArrayIndexOutOfBoundsException ex) {
+                        stb.append("\tJG "+finaldo+n);
+                        finaldo = "";
+                    }
+                }
+                
+                // Si se trata de un mayor o igual que.
+                else if (tripleta.operador.get(i).equalsIgnoreCase(">=")) {
+                    try {
+                        posciclo = ultdo.remove(ultdo.size()-1);
+                        stb.append("\tJGE do"+posciclo+n);
+                    }
+                    catch (ArrayIndexOutOfBoundsException ex) {
+                        stb.append("\tJGE "+finaldo+n);
+                        finaldo = "";
+                    }
+                }
+                
+                // Si se trata de un igual que.
+                else if (tripleta.operador.get(i).equalsIgnoreCase("==")) {
+                    try {
+                        posciclo = ultdo.remove(ultdo.size()-1);
+                        stb.append("\tJE do"+posciclo+n);
+                    }
+                    catch (ArrayIndexOutOfBoundsException ex) {
+                        stb.append("\tJE "+finaldo+n);
+                        finaldo = "";
+                    }
+                }
+                
+                // Si se trata de un diferente de.
+                else if (tripleta.operador.get(i).equalsIgnoreCase("!=")) {
+                    try {
+                        posciclo = ultdo.remove(ultdo.size()-1);
+                        stb.append("\tJNE do"+posciclo+n);
+                    }
+                    catch (ArrayIndexOutOfBoundsException ex) {
+                        stb.append("\tJNE "+finaldo+n);
+                        finaldo = "";
+                    }
+                }
+                
+                // Se saltan las dos lineas que contienen la instrucción while
+                i = i + 2;
+                
+                // Se elimina la posicion de este while.
+                try {
+                    numinswhile = tripleta.lugarwhile.remove(0) - 1;
+                }
+                catch (IndexOutOfBoundsException ex) {
+                    // No hay más ciclos.
+                    numinswhile = -1;
+                }
+                
+                // Si a continuación no nos encontramos con un while o un do,
+                // se considera que es continuación del ciclo anterior.
+                if (i + 1 != numinsdo && i + 1 != numinswhile && i + 1 < tripleta.numeroln.size()) {
+                    if (!finaldo.isEmpty()) {
+                        stb.append("\tJMP "+finaldo+"iter2"+n+finaldo+"iter2:"+n);
+                    }
+                    else {
+                        stb.append("\tJMP exit"+n+"exit:"+n);
+                    }
+                }
+            }
+            
+            // Se verifica que el operador es una asignación.
+            else if (!tripleta.objeto.get(i).contains("T") && !tripleta.fuente.get(i).contains("T")) {
+                
+                stb.append("\tMOV "+tripleta.objeto.get(i)+", "+tripleta.fuente.get(i)+n);
+                
+            }
+            
+            // Si solamente la columna 2 no contiene una variable temporal, estamos ante una asignación.
+            else if (!tripleta.objeto.get(i).contains("T")) {
+                
+                // Se mueve de AL el resultado a la variable correspondiente.
+                stb.append("\tMOV "+tripleta.objeto.get(i)+", AL"+n);
+                
+                // Se limpia la variable para detectar que lo que almacena BH ya no es importante.
+                AL = "";
+                
+            }
+            
+            // De no ser ningun caso anterior, estamos ante una operación aritmetica.
+            else {
+                
+                // Si AL se encuentra vacía, se procede a realizar la operación.
+                if (AL.isEmpty()) {
+                    
+                    // Se mueve a AL el primer número.
+                    stb.append("\tMOV AL, "+tripleta.fuente.get(i)+n);
+                    AL = tripleta.fuente.get(i);
+                    
+                    // Se mueve al siguiente número.
+                    i++;
+                    
+                    // Si no estamos ante una división, se utiliza el registro AH
+                    if (!tripleta.operador.get(i).equalsIgnoreCase("/")) {
+                        stb.append("\tMOV AH, "+tripleta.fuente.get(i)+n);
+                        AH = tripleta.fuente.get(i);
+                    }
+                    
+                    // Pero si se trata de una división.
+                    else {
+                        
+                        // Se limpia la parte alta de AX si no se encuentra vacía.
+                        if (!AH.isEmpty()) {
+                            stb.append("\tMOV AH, 0"+n);
+                            AH = "";
+                        }
+                        
+                        // Se pasa a CL el divisor.
+                        stb.append("\tMOV CL, "+tripleta.fuente.get(i)+n);
+                        CL = tripleta.fuente.get(i);
+                        
+                        // Se realiza la división y se indica los registros con información.
+                        stb.append("\tDIV CL"+n);
+                        AH = "Residuo";
+                        AL = "Resultado";
+                    }
+                    
+                    // Si se trata de una multiplicación.
+                    if (tripleta.operador.get(i).equalsIgnoreCase("*")) {
+                        stb.append("\tMUL AL, AH"+n);
+                        AL = "AL * AH";
+                    }
+                    
+                    // Si se trata de una resta.
+                    else if (tripleta.operador.get(i).equalsIgnoreCase("-")) {
+                        stb.append("\tSUB AL, AH"+n);
+                        AL = "AL - AH";
+                    }
+                    
+                    // Si se trata de una suma.
+                    else if (tripleta.operador.get(i).equalsIgnoreCase("+")) {
+                        stb.append("\tADD AL, AH"+n);
+                        AL = "AL + AH";
+                    }
+                }
+                
+                // Si BL tiene guardada información, se utiliza la misma para seguir utilizandose.
+                else {
+                    
+                    // Se salta la instrucción que hace un guardado de dos temporales.
+                    i++;
+                    
+                    // Si no estamos ante una división, se utiliza el registro AH
+                    if (!tripleta.operador.get(i).equalsIgnoreCase("/")) {
+                        stb.append("\tMOV AH, "+tripleta.fuente.get(i)+n);
+                        AH = tripleta.fuente.get(i);
+                    }
+                    
+                    // Pero si se trata de una división.
+                    else {
+                        
+                        // Se limpia la parte alta de AX si no se encuentra vacía.
+                        if (!AH.isEmpty()) {
+                            stb.append("\tMOV AH, 0"+n);
+                            AH = "";
+                        }
+                        
+                        // Se pasa a CL el divisor.
+                        stb.append("\tMOV CL, "+tripleta.fuente.get(i)+n);
+                        CL = tripleta.fuente.get(i);
+                        
+                        // Se realiza la división y se indica los registros con información.
+                        stb.append("\tDIV CL"+n);
+                        AH = "Residuo";
+                        AL = "Resultado";
+                    }
+                    
+                    // Si se trata de una multiplicación.
+                    if (tripleta.operador.get(i).equalsIgnoreCase("*")) {
+                        stb.append("\tMUL AL, AH"+n);
+                        AL = "AL * AH";
+                    }
+                    
+                    // Si se trata de una resta.
+                    else if (tripleta.operador.get(i).equalsIgnoreCase("-")) {
+                        stb.append("\tSUB AL, AH"+n);
+                        AL = "AL - AH";
+                    }
+                    
+                    // Si se trata de una suma.
+                    else if (tripleta.operador.get(i).equalsIgnoreCase("+")) {
+                        stb.append("\tADD AL, AH"+n);
+                        AL = "AL + AH";
+                    }
+                    
+                }
+                
+            }
+            
+            // Si la siguiente instrucción es un ciclo.
+            if (i + 1 == numinsdo) {
+                
+                // Se escribe un salto hacia el ciclo.
+                stb.append("\tJMP do"+numdo+n);
+                
+            }
+            
+            // Si la siguiente instrucción es una condicion.
+            if (i + 1 == numinswhile) {
+                
+                // Se escribe un salto hacia el ciclo.
+                stb.append("\tJMP while"+numwhile+n);
+                
+            }
+            
+            // Si estamos en la ultima linea.
+            if (i + 1 == tripleta.numeroln.size()) {
+                stb.append("\tend");
+            }
+            
+        }
+        
+        // Se guarda el archivo final.
+        try (FileWriter fw = new FileWriter("Ensamblador.txt")) {
+            fw.write(stb.toString());
+        }
+        catch (IOException ex) {
+            System.out.println("No se pudo guardar el archivo.");
+        }
+    }
+    
+    // Método para convertir un arreglo a texto.
+    public static String arregloATexto (String[] arreglo) {
+        StringBuilder stb = new StringBuilder();
+        
+        for (String texto : arreglo) {
+            stb.append(texto);
+        }
+        
+        return stb.toString();
     }
     
 }
